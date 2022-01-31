@@ -1,0 +1,36 @@
+<div>
+  <form>
+    <mat-form-field appearance="fill" class="space">
+        <mat-label>Last Name</mat-label>
+        <input matInput placeholder="Last Name" name="lastName" [(ngModel)]="lastName">
+    </mat-form-field>
+    <mat-form-field appearance="fill" class="space">
+      <mat-label>Age</mat-label>
+      <input matInput placeholder="Age" name="age" [(ngModel)]="age">
+    </mat-form-field>
+    <button mat-raised-button color="accent" (click)="filter()">Filter</button>
+  </form>
+</div>
+<div class="mat-elevation-z8">
+  <mat-progress-bar mode="indeterminate" *ngIf="isLoading"></mat-progress-bar>
+
+  <mat-paginator #paginator [length]="totalRows" [pageIndex]="currentPage" [pageSize]="pageSize"
+    [pageSizeOptions]="pageSizeOptions" aria-label="Select page">
+  </mat-paginator>
+
+  <table mat-table [dataSource]="dataSource" matSort>
+    <!-- Name Column -->
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
+      <td mat-cell *matCellDef="let row"> {{row.firstName}} {{row.lastName}} </td>
+    </ng-container>
+
+    <!-- Age Column -->
+    <ng-container matColumnDef="age">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Age </th>
+      <td mat-cell *matCellDef="let row"> {{row.age}} </td>
+    </ng-container>
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+</div>
